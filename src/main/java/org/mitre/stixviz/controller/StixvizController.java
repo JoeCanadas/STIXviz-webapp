@@ -29,15 +29,15 @@ public class StixvizController {
     private final AtomicLong counter = new AtomicLong();
 
     
-	@RequestMapping(value="/welcome", method = RequestMethod.GET)
-	public String welcome(ModelMap model) {
- 
-		model.addAttribute("message", "Maven Web Project + Spring 3 MVC - welcome()");
- 
-		//Spring uses InternalResourceViewResolver and return back index.jsp
-		return "index";
- 
-	}
+    @RequestMapping(value="/welcome", method = RequestMethod.GET)
+    public String welcome(ModelMap model) {
+
+            model.addAttribute("message", "Stixviz webservice");
+
+            //Spring uses InternalResourceViewResolver and return back index.jsp
+            return "index";
+
+    }
     
     @RequestMapping("/taxii")
     public Taxii taxii(@RequestParam(value="name", required=false, defaultValue="World") String name) {
