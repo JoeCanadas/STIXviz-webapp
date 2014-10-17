@@ -25,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class StixWebToolsController {
     
-    private static final String template = "test %s";
     private final AtomicLong counter = new AtomicLong();
 
     
@@ -40,9 +39,31 @@ public class StixWebToolsController {
 	}
     
     @RequestMapping("/taxii")
-    public Taxii taxii(@RequestParam(value="name", required=false, defaultValue="World") String name) {
-        return new Taxii(counter.incrementAndGet(),
-                            String.format(template, name));
+    public ModelAndView taxii(@RequestParam(value="collection", required=true) String collection,
+                              @RequestParam(value="taxiiUrl", required=false, defaultValue="http://taxiitest.mitre.org/services/poll") String taxiiUrl,
+                              @RequestParam(value="subId", required=false) String subId,
+                              @RequestParam(value="beginStr", required=false) String beginStr,
+                              @RequestParam(value="endStr", required=false) String endStr) 
+    {
+        ModelAndView model = new ModelAndView("taxii");
+
+        if(subId == null)
+        {
+            subId = "";
+        }
+        if(beginStr == null)
+        {
+            beginStr = "";
+        }
+        if(endStr == null)
+        {
+            endStr = "";
+        }
+        
+        Taxii taxii = new Taxii(taxiiUrl, collection, subId , beginStr, endStr);
+        model.addObject("taxiistatus", taxii.getState());
+        model.addObject("taxiicontent", taxii.getContent());
+        return model;
     }
     
     @RequestMapping("/loadDB")
