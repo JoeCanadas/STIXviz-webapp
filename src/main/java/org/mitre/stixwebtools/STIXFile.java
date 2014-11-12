@@ -4,21 +4,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.web.multipart.MultipartFile;
 
 
-@Entity
-@Table(name="stixfile")
+
 public class STIXFile {
 
-    @Id
-    @Column(name="fileid")
-	private String fileid;
-	
-    @Column(name="filename")
-	private String fileName;
+
+    private String fileid;
     
-    @Column(name="contents")
-	private String contents;
+    private String fileName;
+
+    MultipartFile content;
+
+    
+    public STIXFile(MultipartFile content){
+        this.content = content;
+    }
+    
+    
+    public MultipartFile getContent() {
+        return content;
+    }
+
+    public void setContent(MultipartFile content) {
+        this.content = content;
+    }
     
     public void setId(String id) {
     	this.fileid = id;
@@ -36,11 +47,5 @@ public class STIXFile {
     	return this.fileName;
     }
     
-    public void setContents(String xml) {
-    	this.contents = xml;
-    }
-    
-    public String getContents() {
-    	return this.contents;
-    }
+
 }

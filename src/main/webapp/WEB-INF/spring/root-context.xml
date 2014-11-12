@@ -47,6 +47,14 @@
 		<property name="order" value="1" />
 	</bean>
 
+        <bean id="multipartResolver"
+            class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+             <!-- setting maximum upload size -->
+            <property name="maxUploadSize" value="100000" />
+
+        </bean>
+
 	<!-- Transaction manager for hibernate 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
